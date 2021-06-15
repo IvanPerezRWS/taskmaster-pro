@@ -83,6 +83,7 @@ $("#task-form-modal .btn-primary").click(function() {
 
 // add new code????
 // added code
+// task text was clicked
 $(".list-group").on("click", "p", function() {
 
   // get current text of p element
@@ -101,11 +102,14 @@ $(".list-group").on("click", "p", function() {
   // edtiable field was un-focused
   $(".list-group").on("blur", "textarea", function() {
     //get current value textarea
-    var text = $(this)
+    var text = $(this).val();
+    //get status type and position in the list
+    var status = $(this)
       .closest(".list-group")
       .attr("id")
-      .replace("list-group-item")
-      .index();
+      .replace("list-", "");
+    var index = $(this).closest(".list-group-item").index();
+
   // uopdate task in arrray and re-save to localstorage
   tasks[status][index].text = text;
   saveTasks();
@@ -142,7 +146,8 @@ $(".list-group").on("click", "p", function() {
 
     //get status type and position in the list
     var status = $(this)
-      .closest(".list-group-item")
+      .closest(".list-group-item").attr("id").replace("list-", "");
+    var index = $(this).closest("list-group-item")
       .index();
 
     //update task in array and re-save to localstorage
